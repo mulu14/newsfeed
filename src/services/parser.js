@@ -172,3 +172,43 @@ const getCommonValuePair = (newsArray) => {
 
   return arrayOfNews;
 };
+
+/***************************************
+ * Create Object that has common property across all news feed
+ * Filter common property
+ * Destructure value
+ * @param {Array}
+ * @return {Array}
+ ***************************************/
+const createNewsObject = (newsArray) => {
+  const arrayOfNews = [];
+  newsArray.forEach((array) => {
+    const extractLink = array.filter((object) => object.name === "link");
+    const extractTitle = array.filter((object) => object.name === "title");
+
+    const extractPublishedDate = array.filter(
+      (object) => object.name === "pubDate"
+    );
+
+    const [title] = extractTitle;
+    const { value: newsHead } = title;
+    const [link] = extractLink;
+    const { value: newsLink } = link;
+    const [pubDate] = extractPublishedDate;
+    const { value: publishDate } = pubDate;
+
+    const domain = new URL(newsLink).hostname
+      .replace("www.", "")
+      .split(".")[0]
+      .toUpperCase();
+
+    const newsObject = new Object();
+    newsObject.title = newsHead;
+    newsObject.publishDate = publishDate.split("+")[0];
+    newsObject.newslink = newsLink;
+    newsObject.domain = domain;
+    arrayOfNews.push(newsObject);
+  });
+
+  return arrayOfNews;
+};
