@@ -238,7 +238,7 @@ const sortBydate = (newsArray) => {
   });
 };
 /***************************************
- *
+ * Make the news that is ready for UI
  * @param {void}
  * @return {Array}
  ***************************************/
