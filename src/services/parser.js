@@ -140,3 +140,17 @@ const filterNews = (newsArray) => {
     return news.name === "item" && news.children.length > 0;
   });
 };
+
+/***************************************
+ * Destructure nested object and certain property
+ * @param {Array} newsArray
+ * @return {Array}
+ ***************************************/
+const getAllArrayOfNews = (newsArray) => {
+  const arrayList = [];
+  newsArray.forEach((item) => {
+    const { children } = item;
+    arrayList.push(children);
+  });
+  return arrayList;
+};
