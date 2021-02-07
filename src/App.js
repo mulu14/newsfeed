@@ -16,7 +16,7 @@ function App() {
   return (
     <Container>
       <Row>
-        <Col xs="8">
+        <Col xs="12" sm="6" md="8">
           <article>
             <h2>Personuppgiftspolicy</h2>
             <p className="cookie-notification">
@@ -29,12 +29,12 @@ function App() {
         </Col>
       </Row>
       <Row>
-        <Col xs="8">
+        <Col xs="12" xs="12" sm="6" md="8">
           <AppNav />
         </Col>
       </Row>
       <Row>
-        <Col xs="8">
+        <Col xs="12" xs="12" sm="6" md="8">
           {news.map((item, index) => (
             <News
               key={index}
