@@ -237,3 +237,20 @@ const sortBydate = (newsArray) => {
     return new Date(b.publishDate) - new Date(a.publishDate);
   });
 };
+/***************************************
+ *
+ * @param {void}
+ * @return {Array}
+ ***************************************/
+const newsFeeds = () => {
+  return getAllnewsFeedData().then((data) => {
+    const filter = filterNews(data);
+    const arrayOfnews = getAllArrayOfNews(filter);
+    const getcommon = getCommonValuePair(arrayOfnews);
+    const newsObject = createNewsObject(getcommon);
+    const removeDuplicate = uniqueNews(newsObject);
+    const sortfeed = sortBydate(removeDuplicate);
+    return sortfeed;
+  });
+};
+export default newsFeeds;
