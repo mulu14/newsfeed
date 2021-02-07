@@ -142,7 +142,7 @@ const filterNews = (newsArray) => {
 };
 
 /***************************************
- * Destructure nested object and certain property
+ * Destructure nested object and get property
  * @param {Array} newsArray
  * @return {Array}
  ***************************************/
@@ -153,4 +153,22 @@ const getAllArrayOfNews = (newsArray) => {
     arrayList.push(children);
   });
   return arrayList;
+};
+/***************************************
+ * Filter each array object and return certain property
+ * @param {Array} newsArray
+ * @return {Array}
+ ***************************************/
+const getCommonValuePair = (newsArray) => {
+  const arrayOfNews = [];
+  newsArray.forEach((array) => {
+    const filteredData = array.filter((item) => {
+      return (
+        item.name === "link" || item.name === "pubDate" || item.name === "title"
+      );
+    });
+    arrayOfNews.push(filteredData);
+  });
+
+  return arrayOfNews;
 };
