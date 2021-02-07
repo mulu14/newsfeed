@@ -128,3 +128,15 @@ const getAllnewsFeedData = async () => {
   }
   return newsfeed;
 };
+
+/***************************************
+ * Filter array based on certain property
+ * @param {Array} newsArray
+ * @return  {Array}
+ ***************************************/
+
+const filterNews = (newsArray) => {
+  return newsArray.filter((news) => {
+    return news.name === "item" && news.children.length > 0;
+  });
+};
