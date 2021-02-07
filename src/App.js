@@ -1,12 +1,17 @@
 import React, { useState, useEffect } from "react";
 import { Container, Col, Row } from "reactstrap";
+import AppNav from "./components/nav";
+import News from "./components/news";
 import Newsfeed from "./services/parser";
 import "./App.css";
-import AppNav from "./components/nav";
 
 function App() {
   const [news, setNews] = useState([]);
-  useEffect(() => {}, []);
+  useEffect(() => {
+    Newsfeed().then((data) => {
+      setNews(data.slice(0, 10));
+    });
+  }, []);
 
   return (
     <Container>
@@ -29,7 +34,19 @@ function App() {
         </Col>
       </Row>
       <Row>
-        <Col xs="8"></Col>
+        <Col xs="8">
+          {news.map((item, index) => (
+            <News
+              key={index}
+              index={index}
+              index={index}
+              newslink={item.newslink}
+              publishDate={item.publishDate}
+              title={item.title}
+              domain={item.domain}
+            />
+          ))}
+        </Col>
       </Row>
     </Container>
   );
