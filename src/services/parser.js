@@ -212,3 +212,28 @@ const createNewsObject = (newsArray) => {
 
   return arrayOfNews;
 };
+
+/***************************************
+ * Remove duplicated news
+ * @param {Array}
+ * @return {Array}
+ ***************************************/
+const uniqueNews = (newsArray) => {
+  const key = "title";
+  const arrayUniqueNews = [
+    ...new Map(newsArray.map((item) => [item[key], item])).values(),
+  ];
+  return arrayUniqueNews;
+};
+
+/***************************************
+ * Sort news According the date
+ * @param {Array}
+ * @return {Array}
+ ***************************************/
+
+const sortBydate = (newsArray) => {
+  return newsArray.sort(function (a, b) {
+    return new Date(b.publishDate) - new Date(a.publishDate);
+  });
+};
