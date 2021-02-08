@@ -131,6 +131,7 @@ const getAllnewsFeedData = async () => {
 
 /***************************************
  * Filter array based on certain property
+ * Remove overhead data
  * @param {Array} newsArray
  * @return  {Array}
  ***************************************/
@@ -147,12 +148,12 @@ const filterNews = (newsArray) => {
  * @return {Array}
  ***************************************/
 const getAllArrayOfNews = (newsArray) => {
-  const arrayList = [];
+  let newsList = [];
   newsArray.forEach((item) => {
     const { children } = item;
-    arrayList.push(children);
+    newsList.push(children);
   });
-  return arrayList;
+  return newsList;
 };
 /***************************************
  * Filter each array object and return certain property
@@ -160,17 +161,17 @@ const getAllArrayOfNews = (newsArray) => {
  * @return {Array}
  ***************************************/
 const getCommonValuePair = (newsArray) => {
-  const arrayOfNews = [];
+  let newsList = [];
   newsArray.forEach((array) => {
-    const filteredData = array.filter((item) => {
+    const filtereData = array.filter((item) => {
       return (
         item.name === "link" || item.name === "pubDate" || item.name === "title"
       );
     });
-    arrayOfNews.push(filteredData);
+    newsList.push(filtereData);
   });
 
-  return arrayOfNews;
+  return newsList;
 };
 
 /***************************************
@@ -181,7 +182,7 @@ const getCommonValuePair = (newsArray) => {
  * @return {Array}
  ***************************************/
 const createNewsObject = (newsArray) => {
-  const arrayOfNews = [];
+  let newsList = [];
   newsArray.forEach((array) => {
     const extractLink = array.filter((object) => object.name === "link");
     const extractTitle = array.filter((object) => object.name === "title");
@@ -207,10 +208,10 @@ const createNewsObject = (newsArray) => {
     newsObject.publishDate = publishDate.split("+")[0];
     newsObject.newslink = newsLink;
     newsObject.domain = domain;
-    arrayOfNews.push(newsObject);
+    newsList.push(newsObject);
   });
 
-  return arrayOfNews;
+  return newsList;
 };
 
 /***************************************
@@ -232,7 +233,7 @@ const uniqueNews = (newsArray) => {
  * @return {Array}
  ***************************************/
 
-const sortBydate = (newsArray) => {
+const sortNewsBydate = (newsArray) => {
   return newsArray.sort(function (a, b) {
     return new Date(b.publishDate) - new Date(a.publishDate);
   });
@@ -243,14 +244,18 @@ const sortBydate = (newsArray) => {
  * @return {Array}
  ***************************************/
 const newsFeeds = () => {
-  return getAllnewsFeedData().then((data) => {
-    const filter = filterNews(data);
-    const arrayOfnews = getAllArrayOfNews(filter);
-    const getcommon = getCommonValuePair(arrayOfnews);
-    const newsObject = createNewsObject(getcommon);
-    const removeDuplicate = uniqueNews(newsObject);
-    const sortfeed = sortBydate(removeDuplicate);
-    return sortfeed;
-  });
+  return getAllnewsFeedData()
+    .then((data) => {
+      const filter = filterNews(data);
+      const arrayOfnews = getAllArrayOfNews(filter);
+      const getcommon = getCommonValuePair(arrayOfnews);
+      const newsObject = createNewsObject(getcommon);
+      const removeDuplicate = uniqueNews(newsObject);
+      const sortfeed = sortNewsBydate(removeDuplicate);
+      return sortfeed;
+    })
+    .catch((err) => {
+      console.log("Problem getting data: " + err.message);
+    });
 };
 export default newsFeeds;

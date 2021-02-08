@@ -1,6 +1,6 @@
 import React from "react";
 import { Card, CardTitle, CardText, Button } from "reactstrap";
-function News(props) {
+const News = (props) => {
   return (
     <Card body>
       <CardTitle tag="h5">
@@ -10,6 +10,6 @@ function News(props) {
       <Button>Läs mer på : {props.domain}</Button>
     </Card>
   );
-}
+};
 
 export default News;

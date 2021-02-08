@@ -8,9 +8,13 @@ import "./App.css";
 function App() {
   const [news, setNews] = useState([]);
   useEffect(() => {
-    Newsfeed().then((data) => {
-      setNews(data.slice(0, 10));
-    });
+    Newsfeed()
+      .then((data) => {
+        setNews(data.slice(0, 10));
+      })
+      .catch((err) => {
+        console.log("Problem getting data: " + err.message);
+      });
   }, []);
 
   return (
@@ -29,12 +33,12 @@ function App() {
         </Col>
       </Row>
       <Row>
-        <Col xs="12" xs="12" sm="6" md="8">
+        <Col xs="12" sm="6" md="8">
           <AppNav />
         </Col>
       </Row>
       <Row>
-        <Col xs="12" xs="12" sm="6" md="8">
+        <Col xs="12" sm="6" md="8">
           {news.map((item, index) => (
             <News
               key={index}
