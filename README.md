@@ -7,4 +7,5 @@ The app show latest news
 clone repo:\
 cd newsfeed:\
 npm install\
-npm start\
+npm start \
+contact me if there is any error
